@@ -1,0 +1,59 @@
+﻿<?hda version="11gR1-11.1.1.5.0-idcprod1-110413T184243" jcharset=UTF8 encoding=utf-8?>
+@Properties LocalData
+blFieldTypes=
+preventAdditionalComponentDowngrade=0
+hasPreferenceData=0
+blDateFormat=yyyy-M-d {H:mm[:ss] {aa} [zz]}!m上午,下午!tAsia/Shanghai
+ComponentName=batchdownload
+libpath=$COMPONENT_DIR/lib
+classpath=$COMPONENT_DIR/classes;$COMPONENT_DIR/lib/ant.jar;
+version=2012_11_13(工作版本 1)
+@end
+@ResultSet ClassAliases
+3
+classname
+location
+loadOrder
+@end
+@ResultSet Filters
+4
+type
+location
+parameter
+loadOrder
+checkScheduledEvents
+com.qifa.CleanFilter
+checkScheduledEvents
+100000
+@end
+@ResultSet ResourceDefinition
+4
+type
+filename
+tables
+loadOrder
+resource
+resources/batchdownload_resource.htm
+null
+9999
+service
+resources/batchdownload_service.htm
+batchdownload_Services
+9999
+environment
+batchdownload_environment.cfg
+null
+9999
+@end
+@ResultSet MergeRules
+4
+fromTable
+toTable
+column
+loadOrder
+batchdownload_PublishedStaticFiles
+PublishedStaticFiles
+null
+9999
+@end
+

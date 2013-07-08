@@ -1,0 +1,23 @@
+﻿<?hda version="11gR1-11.1.1.5.0-idcprod1-110413T184243" jcharset=UTF8 encoding=utf-8?>
+@Properties LocalData
+CreateDate=2012-11-14 15:50 下午
+blFieldTypes=CreateDate date
+ComponentName=batchdownload
+blDateFormat=yyyy-M-d {H:mm[:ss] {aa} [zz]}!m上午,下午!tAsia/Shanghai
+@end
+@ResultSet Manifest
+2
+entryType
+location
+component
+batchdownload/batchdownload.hda
+componentExtra
+batchdownload/readme.txt
+componentClasses
+batchdownload/classes/
+componentExtra
+batchdownload/publish/
+componentLib
+batchdownload/lib/
+@end
+

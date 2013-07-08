@@ -1,0 +1,93 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>
+batchdownload htmlIncludeOrString</head>
+<body>
+
+<@dynamichtml batchdownload_sample_include@>
+
+<@end@>
+
+<@table batchdownload_PublishedStaticFiles@>
+<table border=1><caption><strong>
+	<tr>
+		<td>srcPath</td><td>path</td><td>class</td><td>loadOrder</td><td>doPublishScript</td><td>canDeleteDir</td>
+	</tr>
+	<tr>
+		<td>publish</td>
+		<td>resources</td>
+		<td>resources:layout:Trays</td>
+		<td>50</td>
+		<td><$if not DisableBatchDownload$><$doPublish = 1$><$endif$></td>
+		<td>0</td>
+	</tr>
+</table>
+<@end@>
+
+<@dynamichtml std_page_begin@>
+	<$include super.std_page_begin$>
+	<script type="text/javascript" src="/cs/resources/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="/cs/resources/ucm-plugin/jquery.oracle-ucm-1.0.js"></script>
+	<script type="text/javascript" >
+	function initDownloadsMenu2(){
+			var docs = $("#searchResultsdDocNames").val().split(",");
+			var csRoot = $("#csRootdir").val();
+			var selectedDocs = new Array();
+			var j = 0;
+			for(var i = 0;i<docs.length;i++){
+				var selectedDocId ="#select-checkbox-"+docs[i];
+				if($(selectedDocId).attr('checked')!=undefined){
+					selectedDocs[j]=docs[i];
+					j++;
+				};
+			}
+			if(selectedDocs.length!=0){
+				  var qryData = {
+				  IdcService : "BATCH_DOWNLOAD_AS_ZIP",
+				  SelectedDocs : selectedDocs+"",
+				  CsRootdir : csRoot+""
+					};
+					$.ucm.executeService(qryData, function(ucmResponse){
+						var zipFilePath = ucmResponse.getValue("zipFilePath");
+						window.location=zipFilePath; 
+					});
+			 }else{
+					alert("请在左侧选择需下载的文件");
+			 }
+	}
+	</script>
+<@end@>
+
+
+<@dynamichtml searchapi_result_actions_extra@>
+	<$include super.searchapi_result_actions_extra$>
+		<input type="hidden">
+		<input type="hidden" id="searchResultsdDocNames" value="<$loop SearchResults$><$dDocName$>,<$endloop$>"/>
+		<input type="hidden" id="csRootdir" value="<$HttpCgiPath$>">
+<@end@>
+
+<!--定制查询结果menus-->
+<@dynamichtml custom_searchapi_result_menus_setup@>
+	
+	
+		<$if UserIsAdmin$>
+			<$exec rsAppendNewRow("PageMenusData")$>
+			<$PageMenusData.nodeId = "DOWNLOAD"$>
+			<$PageMenusData.parentId = "DOCUMENTS_MENU"$>
+			<$PageMenusData.label = "下载"$>
+			<$PageMenusData.type = "collection"$>
+			<$PageMenusData.loadOrder = 1$>
+			
+			<$exec rsAppendNewRow("PageMenusData")$>
+			<$PageMenusData.nodeId = "DOWNLOAD_SELECT"$>
+			<$PageMenusData.parentId = "DOWNLOAD"$>
+			<$PageMenusData.label = "下载选中文件"$>
+			<$PageMenusData.type = "item"$>
+			<$PageMenusData.loadOrder = 1$>
+			<$PageMenusData.href = "javascript:initDownloadsMenu2()"$>
+		<$endif$>
+<@end@>
+
+</body>
+</html>
